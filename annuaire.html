@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Annuaire Dynabuy — Annuaire</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <div class="logo-icon">D</div>
+      <span>Annuaire Dynabuy</span>
+    </a>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="nav-links" id="navLinks">
+      <a href="index.html" class="nav-link">Accueil</a>
+      <a href="annuaire.html" class="nav-link active">Annuaire</a>
+      <a href="reunions.html" class="nav-link">Réunions</a>
+      <a href="inscription.html" class="nav-link btn-nav">Rejoindre l'annuaire</a>
+    </div>
+  </div>
+</nav>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <div class="page-header-inner">
+    <h1>Annuaire des adhérents</h1>
+    <p>Trouvez le bon professionnel parmi les membres du réseau Dynabuy</p>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="section">
+
+  <!-- SEARCH -->
+  <div class="search-bar">
+    <div class="search-input-wrap">
+      <svg class="search-icon" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+      </svg>
+      <input type="text" class="search-input" id="searchInput" placeholder="Nom, entreprise, ville…" autocomplete="off" />
+    </div>
+    <select class="filter-select" id="sectorFilter">
+      <option value="">Tous les secteurs</option>
+    </select>
+  </div>
+
+  <!-- CHIPS -->
+  <div class="chips" id="chips"></div>
+
+  <!-- COUNT -->
+  <p class="result-count" id="resultCount"></p>
+
+  <!-- GRID -->
+  <div class="cards-grid" id="memberGrid"></div>
+
+</div>
+
+<!-- MODAL CARTE MEMBRE (complète + impression) -->
+<div class="modal-overlay" id="cardModalOverlay">
+  <div class="modal modal-wide">
+    <div class="modal-header">
+      <div class="modal-title">Carte adhérent</div>
+      <button class="modal-close" id="cardModalClose">✕</button>
+    </div>
+    <div id="cardModalContent"></div>
+    <div class="modal-actions">
+      <button class="btn btn-outline btn-sm" onclick="window.print()">
+        <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+        Imprimer la carte
+      </button>
+      <button class="btn btn-secondary btn-sm" id="cardModalCloseBtn">Fermer</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL GRAND QR (partage rapide en réunion) -->
+<div class="modal-overlay" id="qrModalOverlay" style="background:rgba(10,10,10,0.92)">
+  <div style="text-align:center;max-width:340px;width:100%;padding:32px 24px;position:relative">
+    <button id="qrModalClose" style="position:absolute;top:-8px;right:0;background:rgba(255,255,255,0.15);border:none;color:white;width:36px;height:36px;border-radius:50%;cursor:pointer;font-size:1.1rem;display:flex;align-items:center;justify-content:center">✕</button>
+
+    <!-- Nom + entreprise -->
+    <div id="qrModalAvatar" style="width:64px;height:64px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.5rem;font-weight:700;color:white;margin:0 auto 14px"></div>
+    <div id="qrModalName" style="font-size:1.3rem;font-weight:800;color:white;margin-bottom:4px"></div>
+    <div id="qrModalCompany" style="font-size:0.9rem;color:rgba(255,255,255,0.65);margin-bottom:20px"></div>
+
+    <!-- QR CODE GRAND -->
+    <div style="background:white;border-radius:16px;padding:20px;display:inline-block;margin-bottom:16px">
+      <div id="qrModalCode"></div>
+    </div>
+
+    <!-- Instruction -->
+    <div style="color:rgba(255,255,255,0.75);font-size:0.88rem;line-height:1.5">
+      📲 Scannez ce code pour ajouter<br>mes coordonnées dans vos contacts
+    </div>
+
+    <!-- Infos rapides -->
+    <div id="qrModalInfos" style="margin-top:16px;display:flex;flex-direction:column;gap:6px"></div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">
+      <div class="logo-icon">D</div>
+      Annuaire Dynabuy
+    </div>
+    <div class="footer-links">
+      <a href="annuaire.html">Annuaire</a>
+      <a href="reunions.html">Réunions</a>
+      <a href="inscription.html">Inscription</a>
+      <a href="https://www.dynabuy.fr" target="_blank">dynabuy.fr</a>
+    </div>
+  </div>
+  <p class="footer-copy">© 2026 Annuaire Dynabuy — Plateforme réservée aux adhérents</p>
+</footer>
+
+<script src="app.js"></script>
+<script>
+  let allMembers = [];
+  let activeChip = '';
+
+  function renderMembers(list) {
+    const grid = document.getElementById('memberGrid');
+    const count = document.getElementById('resultCount');
+
+    count.innerHTML = `<strong>${list.length}</strong> adhérent${list.length > 1 ? 's' : ''} trouvé${list.length > 1 ? 's' : ''}`;
+
+    if (list.length === 0) {
+      grid.innerHTML = `
+        <div class="empty-state">
+          <div class="empty-state-icon">🔍</div>
+          <h3>Aucun résultat</h3>
+          <p>Essayez un autre terme ou secteur d'activité.</p>
+        </div>`;
+      return;
+    }
+
+    grid.innerHTML = list.map(m => {
+      const initials = getInitials(m.prenom, m.nom);
+      const color = getAvatarColor(m.secteur);
+      return `
+        <div class="card member-card">
+          <div class="member-header">
+            <div class="member-avatar" style="background:${color}">${escapeHtml(initials)}</div>
+            <div>
+              <div class="member-name">${escapeHtml(m.prenom)} ${escapeHtml(m.nom)}</div>
+              <div class="member-company">${escapeHtml(m.entreprise)}</div>
+            </div>
+          </div>
+          <div class="sector-badge">${escapeHtml(m.secteur)}</div>
+          <div class="member-info">
+            <div class="member-info-row">
+              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+              ${escapeHtml(m.ville)}
+            </div>
+            <div class="member-info-row">
+              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+              <a href="mailto:${escapeHtml(m.email)}">${escapeHtml(m.email)}</a>
+            </div>
+            <div class="member-info-row">
+              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1h3a2 2 0 0 1 2 1.72c.128.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 8.91a16 16 0 0 0 5.61 5.61l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.572 2.81.7A2 2 0 0 1 22 16.92Z"/></svg>
+              <a href="tel:${escapeHtml(m.tel.replace(/\s/g,''))}">${escapeHtml(m.tel)}</a>
+            </div>
+          </div>
+          <div class="member-actions">
+            <button class="btn btn-sm btn-primary" onclick='openQRModal(${JSON.stringify(m).replace(/'/g,"&#39;")})' style="flex:1;justify-content:center">
+              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><path d="M14 14h.01M14 17h3M17 14v3M20 14h.01M20 20h.01"/></svg>
+              Mon QR Code
+            </button>
+            <button class="btn btn-sm btn-card" onclick='openCardModal(${JSON.stringify(m).replace(/'/g,"&#39;")})'>
+              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+              Carte
+            </button>
+          </div>
+        </div>`;
+    }).join('');
+  }
+
+  function applyFilters() {
+    const query = document.getElementById('searchInput').value.toLowerCase();
+    const sector = document.getElementById('sectorFilter').value;
+
+    const filtered = allMembers.filter(m => {
+      const matchSearch = !query ||
+        m.prenom.toLowerCase().includes(query) ||
+        m.nom.toLowerCase().includes(query) ||
+        m.entreprise.toLowerCase().includes(query) ||
+        m.ville.toLowerCase().includes(query);
+      const matchSector = !sector || m.secteur === sector;
+      const matchChip = !activeChip || m.secteur === activeChip;
+      return matchSearch && matchSector && matchChip;
+    });
+
+    renderMembers(filtered);
+  }
+
+  function buildChips(members) {
+    const sectors = [...new Set(members.map(m => m.secteur))].sort();
+    const container = document.getElementById('chips');
+
+    const all = document.createElement('button');
+    all.className = 'chip active';
+    all.textContent = 'Tous';
+    all.addEventListener('click', () => {
+      activeChip = '';
+      document.getElementById('sectorFilter').value = '';
+      container.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+      all.classList.add('active');
+      applyFilters();
+    });
+    container.appendChild(all);
+
+    sectors.forEach(s => {
+      const chip = document.createElement('button');
+      chip.className = 'chip';
+      chip.textContent = s;
+      chip.addEventListener('click', () => {
+        activeChip = s;
+        document.getElementById('sectorFilter').value = s;
+        container.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+        chip.classList.add('active');
+        applyFilters();
+      });
+      container.appendChild(chip);
+    });
+  }
+
+  function buildSectorSelect(members) {
+    const select = document.getElementById('sectorFilter');
+    const sectors = [...new Set(members.map(m => m.secteur))].sort();
+    sectors.forEach(s => {
+      const opt = document.createElement('option');
+      opt.value = s;
+      opt.textContent = s;
+      select.appendChild(opt);
+    });
+    select.addEventListener('change', () => {
+      activeChip = select.value;
+      document.querySelectorAll('.chip').forEach(c => {
+        c.classList.toggle('active', c.textContent === (select.value || 'Tous'));
+      });
+      applyFilters();
+    });
+  }
+
+  // ─── MODAL CARTE COMPLÈTE ───
+  function openCardModal(member) {
+    const content = document.getElementById('cardModalContent');
+    const qrId = 'card-qr-' + member.id;
+    content.innerHTML = buildMemberCardHTML(member, qrId);
+    document.getElementById('cardModalOverlay').classList.add('open');
+    setTimeout(() => generateMemberQR(member, qrId, 110), 80);
+  }
+
+  function closeCardModal() {
+    document.getElementById('cardModalOverlay').classList.remove('open');
+  }
+
+  document.getElementById('cardModalClose').addEventListener('click', closeCardModal);
+  document.getElementById('cardModalCloseBtn').addEventListener('click', closeCardModal);
+  document.getElementById('cardModalOverlay').addEventListener('click', e => {
+    if (e.target === document.getElementById('cardModalOverlay')) closeCardModal();
+  });
+
+  // ─── MODAL GRAND QR (partage en réunion) ───
+  function openQRModal(member) {
+    const color = getAvatarColor(member.secteur);
+    const initials = getInitials(member.prenom, member.nom);
+
+    // Avatar
+    const av = document.getElementById('qrModalAvatar');
+    av.textContent = initials;
+    av.style.background = color;
+
+    document.getElementById('qrModalName').textContent = `${member.prenom} ${member.nom}`;
+    document.getElementById('qrModalCompany').textContent = `${member.entreprise} · ${member.ville}`;
+
+    // Infos rapides
+    document.getElementById('qrModalInfos').innerHTML = `
+      <div style="color:rgba(255,255,255,0.6);font-size:0.82rem;display:flex;align-items:center;justify-content:center;gap:6px">
+        <span>📧</span> <span>${escapeHtml(member.email)}</span>
+      </div>
+      <div style="color:rgba(255,255,255,0.6);font-size:0.82rem;display:flex;align-items:center;justify-content:center;gap:6px">
+        <span>📞</span> <span>${escapeHtml(member.tel)}</span>
+      </div>`;
+
+    // QR code grand format
+    const qrContainer = document.getElementById('qrModalCode');
+    qrContainer.innerHTML = '';
+    document.getElementById('qrModalOverlay').classList.add('open');
+
+    setTimeout(() => {
+      if (typeof QRCode !== 'undefined') {
+        new QRCode(qrContainer, {
+          text: generateVCard(member),
+          width: 240,
+          height: 240,
+          colorDark: '#1A1A2E',
+          colorLight: '#ffffff',
+          correctLevel: QRCode.CorrectLevel.M
+        });
+      }
+    }, 60);
+  }
+
+  function closeQRModal() {
+    document.getElementById('qrModalOverlay').classList.remove('open');
+  }
+
+  document.getElementById('qrModalClose').addEventListener('click', closeQRModal);
+  document.getElementById('qrModalOverlay').addEventListener('click', e => {
+    if (e.target === document.getElementById('qrModalOverlay')) closeQRModal();
+  });
+
+  document.addEventListener('DOMContentLoaded', () => {
+    allMembers = getMembers();
+    buildChips(allMembers);
+    buildSectorSelect(allMembers);
+    renderMembers(allMembers);
+    document.getElementById('searchInput').addEventListener('input', applyFilters);
+  });
+</script>
+
+</body>
+</html>

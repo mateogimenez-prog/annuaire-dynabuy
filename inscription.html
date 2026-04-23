@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Annuaire Dynabuy — Inscription</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <style>
+    .page-layout {
+      display: grid;
+      grid-template-columns: 1fr 300px;
+      gap: 32px;
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 56px 24px;
+      align-items: start;
+    }
+
+    .qr-sticky { position: sticky; top: 84px; }
+
+    .my-card-section {
+      display: none;
+      margin-top: 32px;
+    }
+
+    .my-card-section.visible { display: block; }
+
+    .my-card-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .my-card-title svg { color: var(--red); }
+
+    .print-hint {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      margin-top: 16px;
+      text-align: center;
+    }
+
+    @media (max-width: 768px) {
+      .page-layout { grid-template-columns: 1fr; padding: 32px 20px; }
+      .qr-sticky { position: static; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <div class="logo-icon">D</div>
+      <span>Annuaire Dynabuy</span>
+    </a>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="nav-links" id="navLinks">
+      <a href="index.html" class="nav-link">Accueil</a>
+      <a href="annuaire.html" class="nav-link">Annuaire</a>
+      <a href="reunions.html" class="nav-link">Réunions</a>
+      <a href="inscription.html" class="nav-link btn-nav active">Rejoindre l'annuaire</a>
+    </div>
+  </div>
+</nav>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <div class="page-header-inner">
+    <h1>Rejoindre le réseau</h1>
+    <p>Remplissez le formulaire — votre fiche apparaît immédiatement dans l'annuaire</p>
+  </div>
+</div>
+
+<!-- LAYOUT -->
+<div class="page-layout">
+
+  <!-- COLONNE FORMULAIRE -->
+  <div>
+
+    <!-- FORM -->
+    <div class="form-card" id="formCard">
+      <p class="form-title">Mes informations professionnelles</p>
+      <div class="form-grid">
+
+        <div class="form-group">
+          <label for="f_prenom">Prénom <span class="req">*</span></label>
+          <input type="text" class="form-input" id="f_prenom" placeholder="Patricia" />
+          <span class="error-msg">Ce champ est requis.</span>
+        </div>
+
+        <div class="form-group">
+          <label for="f_nom">Nom <span class="req">*</span></label>
+          <input type="text" class="form-input" id="f_nom" placeholder="Dupont" />
+          <span class="error-msg">Ce champ est requis.</span>
+        </div>
+
+        <div class="form-group">
+          <label for="f_entreprise">Entreprise <span class="req">*</span></label>
+          <input type="text" class="form-input" id="f_entreprise" placeholder="Nom de votre société" />
+          <span class="error-msg">Ce champ est requis.</span>
+        </div>
+
+        <div class="form-group">
+          <label for="f_ville">Ville <span class="req">*</span></label>
+          <input type="text" class="form-input" id="f_ville" placeholder="Bordeaux" />
+          <span class="error-msg">Ce champ est requis.</span>
+        </div>
+
+        <div class="form-group">
+          <label for="f_email">Email professionnel <span class="req">*</span></label>
+          <input type="email" class="form-input" id="f_email" placeholder="vous@societe.fr" />
+          <span class="error-msg">Veuillez saisir un email valide.</span>
+        </div>
+
+        <div class="form-group">
+          <label for="f_tel">Téléphone <span class="req">*</span></label>
+          <input type="tel" class="form-input" id="f_tel" placeholder="06 00 00 00 00" />
+          <span class="error-msg">Ce champ est requis.</span>
+        </div>
+
+        <div class="form-group full">
+          <label for="f_secteur">Secteur d'activité <span class="req">*</span></label>
+          <select class="form-select" id="f_secteur">
+            <option value="">— Choisissez votre secteur —</option>
+          </select>
+          <span class="error-msg">Veuillez choisir un secteur.</span>
+        </div>
+
+        <!-- Champ libre qui apparaît si "Autre" ou pour préciser son activité -->
+        <div class="form-group full" id="secteurLibreGroup" style="display:none">
+          <label for="f_secteur_libre">Précisez votre activité <span class="req">*</span></label>
+          <input type="text" class="form-input" id="f_secteur_libre"
+            placeholder="Ex : Conseil en stratégie, Courtier en énergie, Architecte…" />
+          <span class="error-msg">Veuillez préciser votre secteur d'activité.</span>
+        </div>
+
+      </div>
+
+      <button class="btn btn-primary" style="width:100%;justify-content:center;font-size:1rem;padding:14px" id="submitBtn">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+        Rejoindre l'annuaire Dynabuy
+      </button>
+    </div>
+
+    <!-- SUCCESS -->
+    <div class="success-box" id="successBox">
+      <div class="success-icon">✓</div>
+      <h2>Bienvenue dans le réseau !</h2>
+      <p style="margin-bottom:20px">Votre fiche est maintenant visible dans l'annuaire des adhérents Dynabuy.</p>
+      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:8px">
+        <a href="annuaire.html" class="btn btn-primary btn-sm">Voir l'annuaire</a>
+        <a href="reunions.html" class="btn btn-secondary btn-sm">S'inscrire à une réunion</a>
+      </div>
+    </div>
+
+    <!-- MON QR CODE PERSO (grand format, à montrer en réunion) -->
+    <div class="my-card-section" id="myQRSection">
+      <div class="my-card-title">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><path d="M14 14h.01M14 17h3M17 14v3M20 14h.01M20 20h.01"/></svg>
+        Mon QR code personnel
+      </div>
+      <div style="background:var(--text);border-radius:var(--radius);padding:28px;text-align:center">
+        <div id="myQRAvatar" style="width:60px;height:60px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.4rem;font-weight:700;color:white;margin:0 auto 12px"></div>
+        <div id="myQRName" style="font-size:1.1rem;font-weight:700;color:white;margin-bottom:4px"></div>
+        <div id="myQRCompany" style="font-size:0.82rem;color:rgba(255,255,255,0.55);margin-bottom:20px"></div>
+        <div style="background:white;border-radius:12px;padding:16px;display:inline-block;margin-bottom:14px">
+          <div id="myQRCode"></div>
+        </div>
+        <div style="color:rgba(255,255,255,0.65);font-size:0.82rem;line-height:1.5">
+          📲 Faites scanner ce code en réunion<br>pour partager vos coordonnées
+        </div>
+      </div>
+      <p class="print-hint" style="margin-top:14px">
+        <a href="javascript:window.print()" style="color:var(--red);font-weight:600">Imprimer ma carte →</a>
+      </p>
+    </div>
+
+    <!-- MA CARTE COMPLÈTE (pour impression) -->
+    <div class="my-card-section" id="myCardSection">
+      <div class="my-card-title">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+        Ma carte adhérent complète
+      </div>
+      <div id="myCardContainer"></div>
+    </div>
+
+  </div>
+
+  <!-- COLONNE QR CODE PAGE -->
+  <div class="qr-sticky">
+    <div class="qr-card">
+      <div class="qr-card-title">📱 QR Code d'inscription</div>
+      <div class="qr-card-sub">
+        Affichez ce QR code lors de vos réunions pour que les nouveaux membres s'inscrivent directement depuis leur téléphone.
+      </div>
+      <div id="qrcode"></div>
+      <div class="qr-url" id="qrUrl"></div>
+      <div class="info-tip">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        <span>Imprimez cette page ou affichez-la sur un écran lors de vos événements réseau.</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">
+      <div class="logo-icon">D</div>
+      Annuaire Dynabuy
+    </div>
+    <div class="footer-links">
+      <a href="annuaire.html">Annuaire</a>
+      <a href="reunions.html">Réunions</a>
+      <a href="inscription.html">Inscription</a>
+      <a href="https://www.dynabuy.fr" target="_blank">dynabuy.fr</a>
+    </div>
+  </div>
+  <p class="footer-copy">© 2026 Annuaire Dynabuy — Plateforme réservée aux adhérents</p>
+</footer>
+
+<script src="app.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // Populate sector select
+    const select = document.getElementById('f_secteur');
+    SECTORS.forEach(s => {
+      const opt = document.createElement('option');
+      opt.value = s;
+      opt.textContent = s;
+      select.appendChild(opt);
+    });
+
+    // Affiche le champ libre si "Autre" est sélectionné, toujours affiché pour préciser
+    select.addEventListener('change', () => {
+      const libreGroup = document.getElementById('secteurLibreGroup');
+      libreGroup.style.display = select.value === 'Autre' ? 'flex' : 'none';
+      if (select.value !== 'Autre') {
+        document.getElementById('f_secteur_libre').value = '';
+        document.getElementById('f_secteur_libre').closest('.form-group').classList.remove('has-error');
+      }
+    });
+
+    // QR code pour la page d'inscription (scann → ouvre le formulaire)
+    const pageUrl = window.location.href.split('?')[0];
+    document.getElementById('qrUrl').textContent = pageUrl;
+
+    if (typeof QRCode !== 'undefined') {
+      new QRCode(document.getElementById('qrcode'), {
+        text: pageUrl,
+        width: 180,
+        height: 180,
+        colorDark: '#1A1A2E',
+        colorLight: '#ffffff',
+        correctLevel: QRCode.CorrectLevel.M
+      });
+    }
+
+    // ─── SOUMISSION DU FORMULAIRE ───
+    document.getElementById('submitBtn').addEventListener('click', () => {
+      const secteurVal = document.getElementById('f_secteur').value;
+      const secteurLibreVal = document.getElementById('f_secteur_libre').value.trim();
+      const isAutre = secteurVal === 'Autre';
+
+      const fields = [
+        { id: 'f_prenom',    validate: v => v.trim().length > 0 },
+        { id: 'f_nom',       validate: v => v.trim().length > 0 },
+        { id: 'f_entreprise',validate: v => v.trim().length > 0 },
+        { id: 'f_ville',     validate: v => v.trim().length > 0 },
+        { id: 'f_email',     validate: v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim()) },
+        { id: 'f_tel',       validate: v => v.trim().length > 0 },
+        { id: 'f_secteur',   validate: v => v !== '' }
+      ];
+
+      let valid = true;
+      fields.forEach(({ id, validate }) => {
+        const input = document.getElementById(id);
+        const group = input.closest('.form-group');
+        group.classList.remove('has-error');
+        if (!validate(input.value)) { group.classList.add('has-error'); valid = false; }
+      });
+
+      // Valider le champ libre si "Autre"
+      if (isAutre && secteurLibreVal === '') {
+        document.getElementById('f_secteur_libre').closest('.form-group').classList.add('has-error');
+        valid = false;
+      }
+
+      if (!valid) {
+        showToast('Veuillez remplir tous les champs obligatoires.', 'error');
+        return;
+      }
+
+      // Vérifier doublons email
+      const emailVal = document.getElementById('f_email').value.trim().toLowerCase();
+      const existing = getMembers().find(m => m.email.toLowerCase() === emailVal);
+      if (existing) {
+        const g = document.getElementById('f_email').closest('.form-group');
+        g.classList.add('has-error');
+        g.querySelector('.error-msg').textContent = 'Cet email est déjà enregistré dans l\'annuaire.';
+        showToast('Cet email est déjà présent dans l\'annuaire.', 'error');
+        return;
+      }
+
+      // Secteur final : texte libre si "Autre", sinon la valeur du select
+      const secteurFinal = isAutre ? secteurLibreVal : secteurVal;
+
+      const newMember = addMember({
+        prenom:    document.getElementById('f_prenom').value.trim(),
+        nom:       document.getElementById('f_nom').value.trim(),
+        entreprise:document.getElementById('f_entreprise').value.trim(),
+        ville:     document.getElementById('f_ville').value.trim(),
+        email:     emailVal,
+        tel:       document.getElementById('f_tel').value.trim(),
+        secteur:   secteurFinal
+      });
+
+      // Masquer le formulaire, afficher succès
+      document.getElementById('formCard').style.display = 'none';
+      document.getElementById('successBox').classList.add('visible');
+
+      // ── QR code perso grand format ──
+      const color = getAvatarColor(newMember.secteur);
+      const initials = getInitials(newMember.prenom, newMember.nom);
+      document.getElementById('myQRAvatar').textContent = initials;
+      document.getElementById('myQRAvatar').style.background = color;
+      document.getElementById('myQRName').textContent = `${newMember.prenom} ${newMember.nom}`;
+      document.getElementById('myQRCompany').textContent = `${newMember.entreprise} · ${newMember.ville}`;
+      document.getElementById('myQRSection').classList.add('visible');
+
+      setTimeout(() => {
+        const qrContainer = document.getElementById('myQRCode');
+        qrContainer.innerHTML = '';
+        if (typeof QRCode !== 'undefined') {
+          new QRCode(qrContainer, {
+            text: generateVCard(newMember),
+            width: 220,
+            height: 220,
+            colorDark: '#1A1A2E',
+            colorLight: '#ffffff',
+            correctLevel: QRCode.CorrectLevel.M
+          });
+        }
+      }, 100);
+
+      // ── Carte complète (pour impression) ──
+      const qrId = 'my-card-qr-' + newMember.id;
+      document.getElementById('myCardContainer').innerHTML = buildMemberCardHTML(newMember, qrId);
+      document.getElementById('myCardSection').classList.add('visible');
+      setTimeout(() => generateMemberQR(newMember, qrId, 110), 250);
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  });
+</script>
+
+</body>
+</html>

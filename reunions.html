@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Annuaire Dynabuy — Réunions</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .format-badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-size: 0.76rem;
+      font-weight: 600;
+    }
+    .fmt-Matinale    { background: #EFF6FF; color: #1D4ED8; }
+    .fmt-Après-midi  { background: #FEF9C3; color: #854D0E; }
+    .fmt-After-Work  { background: #F3E8FF; color: #6B21A8; }
+    .fmt-Repas       { background: #FEF3C7; color: #92400E; }
+
+    .meeting-prix {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--red);
+    }
+
+    .meeting-animateur {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .month-group { margin-bottom: 40px; }
+    .month-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+      padding: 8px 0;
+      border-bottom: 1.5px solid var(--border);
+      margin-bottom: 16px;
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <div class="logo-icon">D</div>
+      <span>Annuaire Dynabuy</span>
+    </a>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="nav-links" id="navLinks">
+      <a href="index.html" class="nav-link">Accueil</a>
+      <a href="annuaire.html" class="nav-link">Annuaire</a>
+      <a href="reunions.html" class="nav-link active">Réunions</a>
+      <a href="inscription.html" class="nav-link btn-nav">Rejoindre l'annuaire</a>
+    </div>
+  </div>
+</nav>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <div class="page-header-inner">
+    <h1>Prochaines réunions</h1>
+    <p>16 rencontres à venir en Nouvelle-Aquitaine — inscription sur rencontres-dirigeants.com</p>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="section">
+
+  <!-- BANDEAU INSCRIPTION OFFICIELLE -->
+  <div style="background:white;border:1.5px solid var(--border);border-radius:var(--radius);padding:20px 24px;margin-bottom:40px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
+    <div>
+      <div style="font-weight:700;margin-bottom:4px">📋 Inscription via le site officiel</div>
+      <div style="font-size:0.88rem;color:var(--text-muted)">Les réservations se font directement sur <strong>rencontres-dirigeants.com</strong>. Cliquez sur "S'inscrire" sur chaque réunion.</div>
+    </div>
+    <a href="https://www.rencontres-dirigeants.com/nos-rencontres" target="_blank" class="btn btn-primary btn-sm" style="white-space:nowrap">
+      Voir toutes les rencontres →
+    </a>
+  </div>
+
+  <!-- LISTE GROUPÉE PAR MOIS -->
+  <div id="meetingList"></div>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">
+      <div class="logo-icon">D</div>
+      Annuaire Dynabuy
+    </div>
+    <div class="footer-links">
+      <a href="annuaire.html">Annuaire</a>
+      <a href="reunions.html">Réunions</a>
+      <a href="inscription.html">Inscription</a>
+      <a href="https://www.dynabuy.fr" target="_blank">dynabuy.fr</a>
+    </div>
+  </div>
+  <p class="footer-copy">© 2026 Annuaire Dynabuy — Plateforme réservée aux adhérents</p>
+</footer>
+
+<script src="app.js"></script>
+<script>
+
+  function renderMeetings() {
+    const meetings = getMeetings();
+    const list = document.getElementById('meetingList');
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    const upcoming = meetings.filter(m => new Date(m.date + 'T23:59:59') >= today);
+
+    if (upcoming.length === 0) {
+      list.innerHTML = `
+        <div class="empty-state">
+          <div class="empty-state-icon">📅</div>
+          <h3>Aucune réunion à venir</h3>
+          <p>Consultez <a href="https://www.rencontres-dirigeants.com/nos-rencontres" target="_blank" style="color:var(--red)">rencontres-dirigeants.com</a> pour les prochaines dates.</p>
+        </div>`;
+      return;
+    }
+
+    // Grouper par mois
+    const byMonth = {};
+    upcoming.forEach(m => {
+      const d = new Date(m.date + 'T12:00:00');
+      const key = d.toLocaleDateString('fr-FR', { month: 'long', year: 'numeric' });
+      if (!byMonth[key]) byMonth[key] = [];
+      byMonth[key].push(m);
+    });
+
+    list.innerHTML = Object.entries(byMonth).map(([month, items]) => `
+      <div class="month-group">
+        <div class="month-label">${month}</div>
+        <div class="meeting-list">
+          ${items.map(m => {
+            const { day, month: mo } = getDateParts(m.date);
+            const label = getFormatLabel(m);
+            const fmtClass = 'fmt-' + label.replace(' ', '-');
+            return `
+              <div class="card meeting-card">
+                <div class="meeting-date-box">
+                  <span class="meeting-date-day">${day}</span>
+                  <span class="meeting-date-month">${mo}</span>
+                </div>
+                <div class="meeting-body">
+                  <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:6px">
+                    <div class="meeting-title" style="margin:0">${escapeHtml(m.titre)}</div>
+                    <span class="format-badge ${fmtClass}">${escapeHtml(label)}</span>
+                  </div>
+                  <div class="meeting-meta">
+                    <span>
+                      <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                      ${escapeHtml(m.heure)} – ${escapeHtml(m.fin)}
+                    </span>
+                    <span>
+                      <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                      ${escapeHtml(m.lieu)}
+                    </span>
+                  </div>
+                  <div class="meeting-footer">
+                    <div class="meeting-animateur">
+                      <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                      ${escapeHtml(m.animateur)}
+                    </div>
+                    <div class="meeting-prix">${escapeHtml(m.prix)}</div>
+                    <a href="https://www.rencontres-dirigeants.com/nos-rencontres" target="_blank" class="btn btn-sm btn-primary">
+                      S'inscrire →
+                    </a>
+                  </div>
+                </div>
+              </div>`;
+          }).join('')}
+        </div>
+      </div>
+    `).join('');
+  }
+
+  document.addEventListener('DOMContentLoaded', renderMeetings);
+</script>
+
+</body>
+</html>
