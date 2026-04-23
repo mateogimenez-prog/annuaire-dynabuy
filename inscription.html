@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <script src="https://unpkg.com/qrcode@1.5.4/build/qrcode.min.js"></script>
   <style>
     .page-layout {
       display: grid;
@@ -258,14 +258,12 @@
     document.getElementById('qrUrl').textContent = pageUrl;
 
     if (typeof QRCode !== 'undefined') {
-      new QRCode(document.getElementById('qrcode'), {
-        text: pageUrl,
-        width: 180,
-        height: 180,
-        colorDark: '#1A1A2E',
-        colorLight: '#ffffff',
-        correctLevel: QRCode.CorrectLevel.M
-      });
+      const canvas = document.createElement('canvas');
+      document.getElementById('qrcode').appendChild(canvas);
+      QRCode.toCanvas(canvas, pageUrl, {
+        width: 180, margin: 1,
+        color: { dark: '#1A1A2E', light: '#ffffff' }
+      }, err => { if (err) console.error(err); });
     }
 
     // ─── SOUMISSION DU FORMULAIRE ───
@@ -344,14 +342,12 @@
         const qrContainer = document.getElementById('myQRCode');
         qrContainer.innerHTML = '';
         if (typeof QRCode !== 'undefined') {
-          new QRCode(qrContainer, {
-            text: generateVCard(newMember),
-            width: 220,
-            height: 220,
-            colorDark: '#1A1A2E',
-            colorLight: '#ffffff',
-            correctLevel: QRCode.CorrectLevel.M
-          });
+          const canvas = document.createElement('canvas');
+          qrContainer.appendChild(canvas);
+          QRCode.toCanvas(canvas, generateVCard(newMember), {
+            width: 220, margin: 1,
+            color: { dark: '#1A1A2E', light: '#ffffff' }
+          }, err => { if (err) console.error(err); });
         }
       }, 100);
 

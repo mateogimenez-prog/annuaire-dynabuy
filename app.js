@@ -275,14 +275,13 @@ function generateMemberQR(member, containerId, size = 110) {
   const container = document.getElementById(containerId);
   if (!container || typeof QRCode === 'undefined') return;
   container.innerHTML = '';
-  new QRCode(container, {
-    text: generateVCard(member),
+  const canvas = document.createElement('canvas');
+  container.appendChild(canvas);
+  QRCode.toCanvas(canvas, generateVCard(member), {
     width: size,
-    height: size,
-    colorDark: '#1A1A2E',
-    colorLight: '#ffffff',
-    correctLevel: QRCode.CorrectLevel.M
-  });
+    margin: 1,
+    color: { dark: '#1A1A2E', light: '#ffffff' }
+  }, err => { if (err) console.error('QR error:', err); });
 }
 
 // ─── UI HELPERS ────────────────────────────
