@@ -80,17 +80,6 @@
 <!-- MAIN -->
 <div class="section">
 
-  <!-- BANDEAU INSCRIPTION OFFICIELLE -->
-  <div style="background:white;border:1.5px solid var(--border);border-radius:var(--radius);padding:20px 24px;margin-bottom:40px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
-    <div>
-      <div style="font-weight:700;margin-bottom:4px">📋 Inscription via le site officiel</div>
-      <div style="font-size:0.88rem;color:var(--text-muted)">Les réservations se font directement sur <strong>rencontres-dirigeants.com</strong>. Cliquez sur "S'inscrire" sur chaque réunion.</div>
-    </div>
-    <a href="https://www.rencontres-dirigeants.com/nos-rencontres" target="_blank" class="btn btn-primary btn-sm" style="white-space:nowrap">
-      Voir toutes les rencontres →
-    </a>
-  </div>
-
   <!-- LISTE GROUPÉE PAR MOIS -->
   <div id="meetingList"></div>
 
@@ -178,7 +167,7 @@
                       ${escapeHtml(m.animateur)}
                     </div>
                     <div class="meeting-prix">${escapeHtml(m.prix)}</div>
-                    <a href="https://www.rencontres-dirigeants.com/nos-rencontres" target="_blank" class="btn btn-sm btn-primary">
+                    <a href="${m.lien || 'https://www.rencontres-dirigeants.com/nos-rencontres'}" target="_blank" class="btn btn-sm btn-primary">
                       S'inscrire →
                     </a>
                   </div>
