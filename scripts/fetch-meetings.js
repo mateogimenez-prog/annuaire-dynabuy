@@ -249,6 +249,29 @@ function updateAppJs(meetings) {
   return true;
 }
 
+function prunePastMeetings() {
+  const src = fs.readFileSync(APP_JS, 'utf8');
+  const today = new Date().toISOString().slice(0, 10);
+  const blockMatch = src.match(/const SAMPLE_MEETINGS = \[([\s\S]*?)\];/);
+  if (!blockMatch) return false;
+
+  const existing = [];
+  const re = /\{\s*id:\s*'([^']+)',[\s\S]*?date:\s*'(\d{4}-\d{2}-\d{2})'[\s\S]*?lien:\s*'([^']+)'\s*\}/g;
+  let m;
+  while ((m = re.exec(blockMatch[1])) !== null) {
+    existing.push({ raw: m[0], date: m[2] });
+  }
+
+  const kept = existing.filter(e => e.date >= today);
+  if (kept.length === existing.length) return false;
+
+  const lines = kept.map((e, i) => `  ${e.raw.replace(/^\s+|\s+$/g, '')}${i < kept.length - 1 ? ',' : ''}`);
+  const newBlock = `const SAMPLE_MEETINGS = [\n${lines.join('\n')}\n];`;
+  const newSrc = src.replace(/const SAMPLE_MEETINGS = \[[\s\S]*?\];/, newBlock);
+  fs.writeFileSync(APP_JS, newSrc, 'utf8');
+  return true;
+}
+
 async function main() {
   console.log(`[${new Date().toISOString()}] Démarrage de la mise à jour des réunions...`);
 
@@ -303,7 +326,9 @@ async function main() {
       const changed = updateAppJs(meetings);
       console.log(changed ? '✓ app.js mis à jour' : 'app.js inchangé');
     } else {
-      console.log('⚠ Aucune réunion valide, app.js conservé');
+      console.log('⚠ Aucune réunion trouvée sur le site, nettoyage des dates passées uniquement');
+      const pruned = prunePastMeetings();
+      console.log(pruned ? '✓ Réunions passées supprimées de app.js' : 'Aucune réunion passée à supprimer');
     }
   } finally {
     await browser.close();

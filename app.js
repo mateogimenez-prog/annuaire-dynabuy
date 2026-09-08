@@ -74,14 +74,6 @@ const LIEN_INSCRIPTION = 'https://www.rencontres-dirigeants.com/nos-rencontres';
 
 const SAMPLE_MEETINGS = [
   {
-    id: 'm1',
-    titre: 'Rencontre réseau — Bordeaux',
-    date: '2026-09-03', heure: '18h00', fin: '20h30',
-    lieu: 'Bordeaux', format: 'Présentiel',
-    animateur: 'Patricia GRATAS', prix: '20,84 € HT',
-    lien: 'https://www.rencontres-dirigeants.com/nos-rencontres/35612'
-  },
-  {
     id: 'm2',
     titre: 'Déjeuner M & SPA — Mérignac',
     date: '2026-09-09', heure: '12h30', fin: '14h00',
