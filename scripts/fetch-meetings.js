@@ -14,6 +14,29 @@ const ANIMATEURS = ['GIMENEZ', 'GRATAS', 'BARICAULT'];
 // Agences connues (sera complété automatiquement via le dropdown)
 const AGENCES_CONNUES = [254]; // Patricia GRATAS = 254
 
+// Villes par département pour le suivi des minimums
+const VILLES_GIRONDE = [
+  'bordeaux', 'merignac', 'mérignac', 'talence', 'pessac', 'gradignan',
+  'villenave', 'haillan', 'blanquefort', 'libourne', 'arcachon', 'begles',
+  'bègles', 'langon', 'lesparre', 'ambares', 'ambès', 'bassens', 'cenon',
+  'floirac', 'lormont', 'carbon-blanc', 'eysines', 'bruges', 'le bouscat',
+  'caudéran', 'cauderan', 'saint-médard', 'mérignac', 'gujan', 'la teste',
+];
+const VILLES_PA = [
+  'bayonne', 'pau', 'biarritz', 'anglet', 'hendaye', 'saint-jean-de-luz',
+  'orthez', 'oloron', 'mouguerre', 'bidart', 'ciboure', 'hasparren',
+  'cambo', 'mauléon', 'salies', 'lescar', 'billère', 'lons', 'jurançon',
+];
+
+const MIN_MEETINGS = { 'Gironde': 8, 'Pyrénées-Atlantiques': 6 };
+
+function detectDepartement(ville) {
+  const v = ville.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
+  if (VILLES_GIRONDE.some(c => v.includes(c.replace(/[éèêëàâ]/g, '')))) return 'Gironde';
+  if (VILLES_PA.some(c => v.includes(c.replace(/[éèêëàâ]/g, '')))) return 'Pyrénées-Atlantiques';
+  return 'Autre';
+}
+
 const MOIS = {
   'janv': '01', 'janvier': '01',
   'fevr': '02', 'fevrier': '02', 'fevr': '02',
@@ -330,6 +353,32 @@ async function main() {
       const pruned = prunePastMeetings();
       console.log(pruned ? '✓ Réunions passées supprimées de app.js' : 'Aucune réunion passée à supprimer');
     }
+
+    // Bilan par département
+    const allMeetings = meetings.length > 0 ? meetings : (() => {
+      const src = require('fs').readFileSync(APP_JS, 'utf8');
+      const block = src.match(/const SAMPLE_MEETINGS = \[([\s\S]*?)\];/);
+      if (!block) return [];
+      const re = /lieu:\s*'([^']+)'/g;
+      const lieux = [];
+      let m;
+      while ((m = re.exec(block[1])) !== null) lieux.push({ lieu: m[1] });
+      return lieux;
+    })();
+
+    const counts = {};
+    allMeetings.forEach(m => {
+      const dept = detectDepartement(m.lieu || '');
+      counts[dept] = (counts[dept] || 0) + 1;
+    });
+
+    console.log('\n── Bilan par département ──');
+    for (const [dept, min] of Object.entries(MIN_MEETINGS)) {
+      const n = counts[dept] || 0;
+      const ok = n >= min ? '✓' : '⚠ INSUFFISANT';
+      console.log(`${ok} ${dept} : ${n}/${min} réunions à venir`);
+    }
+    if (counts['Autre']) console.log(`  Autre/non classé : ${counts['Autre']}`);
   } finally {
     await browser.close();
   }

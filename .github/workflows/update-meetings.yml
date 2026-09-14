@@ -2,8 +2,8 @@ name: Mise à jour des réunions
 
 on:
   schedule:
-    - cron: '0 3 * * *'   # Tous les jours à 3h UTC = 5h heure de Paris (CEST)
-  workflow_dispatch:       # Déclenchement manuel possible
+    - cron: '0 */4 * * *'  # Toutes les 4h : 1h, 5h, 9h, 13h, 17h, 21h UTC
+  workflow_dispatch:        # Déclenchement manuel possible
 
 permissions:
   contents: write
