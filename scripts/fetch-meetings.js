@@ -124,7 +124,7 @@ async function getAgencyIds(page) {
 async function getMeetingIds(page, agencyId) {
   try {
     const url = `${BASE}/nos-rencontres?agency=${agencyId}`;
-    await page.goto(url, { waitUntil: 'networkidle2', timeout: 20000 });
+    await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 20000 });
 
     // Si redirigé vers la page principale, l'agence n'existe pas
     if (!page.url().includes(`agency=${agencyId}`)) return [];

@@ -73,61 +73,294 @@ const INITIAL_MEMBERS = [
 const LIEN_INSCRIPTION = 'https://www.rencontres-dirigeants.com/nos-rencontres';
 
 const SAMPLE_MEETINGS = [
+  // ── Octobre 2026 ──────────────────────────
   {
-    id: 'm2',
-    titre: 'Déjeuner M & SPA — Mérignac',
-    date: '2026-09-09', heure: '12h30', fin: '14h00',
-    lieu: 'Mérignac', format: 'Repas',
-    animateur: 'Patricia GRATAS', prix: '25,00 € (sur place)',
-    lien: 'https://www.rencontres-dirigeants.com/nos-rencontres/39191'
+    id: 'm35402',
+    titre: 'Rencontre réseau — Lons',
+    date: '2026-10-01', heure: '09h00', fin: '11h30',
+    lieu: 'Lons', format: 'Présentiel',
+    animateur: 'Michaël GIMENEZ', prix: '5,00 € HT',
+    lien: 'https://www.rencontres-dirigeants.com/nos-rencontres/35402'
   },
   {
-    id: 'm3',
+    id: 'm35519',
+    titre: 'Rencontre réseau — Dax',
+    date: '2026-10-02', heure: '09h00', fin: '11h30',
+    lieu: 'Dax', format: 'Présentiel',
+    animateur: 'Michaël GIMENEZ', prix: '9,00 € HT',
+    lien: 'https://www.rencontres-dirigeants.com/nos-rencontres/35519'
+  },
+  {
+    id: 'm35678',
+    titre: 'Rencontre réseau — Saint-Émilion',
+    date: '2026-10-09', heure: '09h00', fin: '11h30',
+    lieu: 'Saint-Émilion', format: 'Présentiel',
+    animateur: 'Tanguy BARICAULT', prix: '12,50 € HT',
+    lien: 'https://www.rencontres-dirigeants.com/nos-rencontres/35678'
+  },
+  {
+    id: 'm35615',
     titre: 'Rencontre réseau — Le Haillan',
     date: '2026-10-13', heure: '09h00', fin: '11h30',
     lieu: 'Le Haillan', format: 'Présentiel',
-    animateur: 'Patricia GRATAS', prix: '15,84 € HT',
+    animateur: 'Mateo GIMENEZ', prix: '15,84 € HT',
     lien: 'https://www.rencontres-dirigeants.com/nos-rencontres/35615'
   },
   {
-    id: 'm4',
+    id: 'm35585',
+    titre: 'Rencontre réseau — Bayonne',
+    date: '2026-10-16', heure: '09h00', fin: '11h30',
+    lieu: 'Bayonne', format: 'Présentiel',
+    animateur: 'Michaël GIMENEZ', prix: '10,00 € HT',
+    lien: 'https://www.rencontres-dirigeants.com/nos-rencontres/35585'
+  },
+  {
+    id: 'm35399',
+    titre: 'Déjeuner réseau — Mérignac',
+    date: '2026-10-21', heure: '12h30', fin: '14h00',
+    lieu: 'Mérignac', format: 'Repas',
+    animateur: 'Michaël GIMENEZ', prix: '22,00 € (sur place)',
+    lien: 'https://www.rencontres-dirigeants.com/nos-rencontres/35399'
+  },
+  {
+    id: 'm35453',
+    titre: 'Rencontre réseau — Bordeaux',
+    date: '2026-10-29', heure: '15h00', fin: '17h30',
+    lieu: 'Bordeaux', format: 'Présentiel',
+    animateur: 'Michaël GIMENEZ', prix: '11,00 € HT',
+    lien: 'https://www.rencontres-dirigeants.com/nos-rencontres/35453'
+  },
+  // ── Novembre 2026 ─────────────────────────
+  {
+    id: 'm35618',
     titre: 'Rencontre réseau — Bordeaux',
     date: '2026-11-03', heure: '09h00', fin: '12h30',
     lieu: 'Bordeaux', format: 'Présentiel',
-    animateur: 'Patricia GRATAS', prix: '24,00 € HT',
-    lien: 'https://www.rencontres-dirigeants.com/nos-rencontres?agency=254'
+    animateur: 'Mateo GIMENEZ', prix: '24,00 € HT',
+    lien: 'https://www.rencontres-dirigeants.com/nos-rencontres/35618'
   },
   {
-    id: 'm5',
-    titre: "Rencontre réseau — Villenave-d'Ornon",
+    id: 'm35408',
+    titre: 'Rencontre réseau — Gan',
+    date: '2026-11-05', heure: '09h00', fin: '11h30',
+    lieu: 'Gan', format: 'Présentiel',
+    animateur: 'Michaël GIMENEZ', prix: '8,00 € HT',
+    lien: 'https://www.rencontres-dirigeants.com/nos-rencontres/35408'
+  },
+  {
+    id: 'm35492',
+    titre: 'Rencontre réseau — Dax',
+    date: '2026-11-06', heure: '09h00', fin: '11h30',
+    lieu: 'Dax', format: 'Présentiel',
+    animateur: 'Michaël GIMENEZ', prix: '9,00 € HT',
+    lien: 'https://www.rencontres-dirigeants.com/nos-rencontres/35492'
+  },
+  {
+    id: 'm35681',
+    titre: 'Rencontre réseau — Latresne',
+    date: '2026-11-17', heure: '09h00', fin: '11h45',
+    lieu: 'Latresne', format: 'Présentiel',
+    animateur: 'Tanguy BARICAULT', prix: '13,00 € HT',
+    lien: 'https://www.rencontres-dirigeants.com/nos-rencontres/35681'
+  },
+  {
+    id: 'm35588',
+    titre: 'Rencontre réseau — Saint-Jean-de-Luz',
+    date: '2026-11-20', heure: '09h00', fin: '11h30',
+    lieu: 'Saint-Jean-de-Luz', format: 'Présentiel',
+    animateur: 'Michaël GIMENEZ', prix: '12,00 € HT',
+    lien: 'https://www.rencontres-dirigeants.com/nos-rencontres/35588'
+  },
+  {
+    id: 'm35459',
+    titre: 'Rencontre réseau — Bordeaux',
+    date: '2026-11-26', heure: '15h00', fin: '17h30',
+    lieu: 'Bordeaux', format: 'Présentiel',
+    animateur: 'Michaël GIMENEZ', prix: '11,00 € HT',
+    lien: 'https://www.rencontres-dirigeants.com/nos-rencontres/35459'
+  },
+  // ── Décembre 2026 ─────────────────────────
+  {
+    id: 'm35621',
+    titre: 'Rencontre réseau — Villenave-d\'Ornon',
     date: '2026-12-01', heure: '09h00', fin: '11h30',
-    lieu: "Villenave-d'Ornon", format: 'Présentiel',
-    animateur: 'Patricia GRATAS', prix: '10,00 € HT',
-    lien: 'https://www.rencontres-dirigeants.com/nos-rencontres?agency=254'
+    lieu: 'Villenave-d\'Ornon', format: 'Présentiel',
+    animateur: 'Mateo GIMENEZ', prix: '10,00 € HT',
+    lien: 'https://www.rencontres-dirigeants.com/nos-rencontres/35621'
   },
   {
-    id: 'm6',
+    id: 'm35414',
+    titre: 'Rencontre réseau — Lescar',
+    date: '2026-12-03', heure: '09h00', fin: '11h30',
+    lieu: 'Lescar', format: 'Présentiel',
+    animateur: 'Michaël GIMENEZ', prix: '10,00 € HT',
+    lien: 'https://www.rencontres-dirigeants.com/nos-rencontres/35414'
+  },
+  {
+    id: 'm35495',
+    titre: 'Rencontre réseau — Dax',
+    date: '2026-12-04', heure: '09h00', fin: '11h30',
+    lieu: 'Dax', format: 'Présentiel',
+    animateur: 'Michaël GIMENEZ', prix: '11,00 € HT',
+    lien: 'https://www.rencontres-dirigeants.com/nos-rencontres/35495'
+  },
+  {
+    id: 'm35684',
+    titre: 'Rencontre réseau — Libourne',
+    date: '2026-12-10', heure: '09h00', fin: '11h30',
+    lieu: 'Libourne', format: 'Présentiel',
+    animateur: 'Tanguy BARICAULT', prix: '10,00 € HT',
+    lien: 'https://www.rencontres-dirigeants.com/nos-rencontres/35684'
+  },
+  {
+    id: 'm35720',
+    titre: 'Déjeuner réseau — Libourne',
+    date: '2026-12-15', heure: '12h30', fin: '14h00',
+    lieu: 'Libourne', format: 'Repas',
+    animateur: 'Tanguy BARICAULT', prix: '25,00 € (sur place)',
+    lien: 'https://www.rencontres-dirigeants.com/nos-rencontres/35720'
+  },
+  {
+    id: 'm35468',
+    titre: 'Rencontre réseau — Bordeaux',
+    date: '2026-12-17', heure: '15h00', fin: '17h30',
+    lieu: 'Bordeaux', format: 'Présentiel',
+    animateur: 'Michaël GIMENEZ', prix: '11,00 € HT',
+    lien: 'https://www.rencontres-dirigeants.com/nos-rencontres/35468'
+  },
+  {
+    id: 'm35591',
+    titre: 'Rencontre réseau — Bayonne',
+    date: '2026-12-18', heure: '09h00', fin: '11h30',
+    lieu: 'Bayonne', format: 'Présentiel',
+    animateur: 'Michaël GIMENEZ', prix: '10,00 € HT',
+    lien: 'https://www.rencontres-dirigeants.com/nos-rencontres/35591'
+  },
+  // ── Janvier 2027 ──────────────────────────
+  {
+    id: 'm50456',
+    titre: 'Événement réseau — Pau',
+    date: '2027-01-16', heure: '11h00', fin: '17h00',
+    lieu: 'Pau', format: 'Évènementiel',
+    animateur: 'Michaël GIMENEZ', prix: '84,00 € HT',
+    lien: 'https://www.rencontres-dirigeants.com/nos-rencontres/50456'
+  },
+  {
+    id: 'm44628',
     titre: 'Rencontre réseau — Talence',
     date: '2027-01-21', heure: '09h00', fin: '11h30',
     lieu: 'Talence', format: 'Présentiel',
-    animateur: 'Patricia GRATAS', prix: '11,00 € HT',
-    lien: 'https://www.rencontres-dirigeants.com/nos-rencontres?agency=254'
+    animateur: 'Mateo GIMENEZ', prix: '11,00 € HT',
+    lien: 'https://www.rencontres-dirigeants.com/nos-rencontres/44628'
   },
   {
-    id: 'm7',
+    id: 'm44457',
+    titre: 'Rencontre réseau — Bayonne',
+    date: '2027-01-21', heure: '09h00', fin: '11h30',
+    lieu: 'Bayonne', format: 'Présentiel',
+    animateur: 'Michaël GIMENEZ', prix: '10,00 € HT',
+    lien: 'https://www.rencontres-dirigeants.com/nos-rencontres/44457'
+  },
+  {
+    id: 'm44496',
+    titre: 'Rencontre réseau — Dax',
+    date: '2027-01-21', heure: '09h00', fin: '11h30',
+    lieu: 'Dax', format: 'Présentiel',
+    animateur: 'Michaël GIMENEZ', prix: '8,00 € HT',
+    lien: 'https://www.rencontres-dirigeants.com/nos-rencontres/44496'
+  },
+  // ── Février 2027 ──────────────────────────
+  {
+    id: 'm44601',
+    titre: 'Rencontre réseau — Libourne',
+    date: '2027-02-02', heure: '09h00', fin: '11h30',
+    lieu: 'Libourne', format: 'Présentiel',
+    animateur: 'Tanguy BARICAULT', prix: '10,00 € HT',
+    lien: 'https://www.rencontres-dirigeants.com/nos-rencontres/44601'
+  },
+  {
+    id: 'm44646',
     titre: 'Déjeuner réseau — Mérignac',
     date: '2027-02-11', heure: '12h30', fin: '14h00',
     lieu: 'Mérignac', format: 'Repas',
-    animateur: 'Patricia GRATAS', prix: '25,00 € (sur place)',
-    lien: 'https://www.rencontres-dirigeants.com/nos-rencontres?agency=254'
+    animateur: 'Mateo GIMENEZ', prix: '25,00 € (sur place)',
+    lien: 'https://www.rencontres-dirigeants.com/nos-rencontres/44646'
   },
   {
-    id: 'm8',
+    id: 'm44631',
     titre: 'Rencontre réseau — Talence',
     date: '2027-02-18', heure: '09h00', fin: '11h30',
     lieu: 'Talence', format: 'Présentiel',
-    animateur: 'Patricia GRATAS', prix: '11,00 € HT',
-    lien: 'https://www.rencontres-dirigeants.com/nos-rencontres?agency=254'
+    animateur: 'Mateo GIMENEZ', prix: '11,00 € HT',
+    lien: 'https://www.rencontres-dirigeants.com/nos-rencontres/44631'
+  },
+  // ── Mars 2027 ─────────────────────────────
+  {
+    id: 'm44643',
+    titre: 'Déjeuner réseau — Mérignac',
+    date: '2027-03-11', heure: '12h30', fin: '14h00',
+    lieu: 'Mérignac', format: 'Repas',
+    animateur: 'Mateo GIMENEZ', prix: '25,00 € (sur place)',
+    lien: 'https://www.rencontres-dirigeants.com/nos-rencontres/44643'
+  },
+  {
+    id: 'm44634',
+    titre: 'Rencontre réseau — Talence',
+    date: '2027-03-18', heure: '09h00', fin: '11h30',
+    lieu: 'Talence', format: 'Présentiel',
+    animateur: 'Mateo GIMENEZ', prix: '11,00 € HT',
+    lien: 'https://www.rencontres-dirigeants.com/nos-rencontres/44634'
+  },
+  // ── Avril 2027 ────────────────────────────
+  {
+    id: 'm44607',
+    titre: 'Rencontre réseau — Libourne',
+    date: '2027-04-01', heure: '09h00', fin: '11h30',
+    lieu: 'Libourne', format: 'Présentiel',
+    animateur: 'Tanguy BARICAULT', prix: '10,00 € HT',
+    lien: 'https://www.rencontres-dirigeants.com/nos-rencontres/44607'
+  },
+  {
+    id: 'm44637',
+    titre: 'Rencontre réseau — Talence',
+    date: '2027-04-08', heure: '09h00', fin: '11h30',
+    lieu: 'Talence', format: 'Présentiel',
+    animateur: 'Mateo GIMENEZ', prix: '11,00 € HT',
+    lien: 'https://www.rencontres-dirigeants.com/nos-rencontres/44637'
+  },
+  // ── Mai 2027 ──────────────────────────────
+  {
+    id: 'm44640',
+    titre: 'Déjeuner réseau — Mérignac',
+    date: '2027-05-20', heure: '12h30', fin: '14h00',
+    lieu: 'Mérignac', format: 'Repas',
+    animateur: 'Mateo GIMENEZ', prix: '25,00 € (sur place)',
+    lien: 'https://www.rencontres-dirigeants.com/nos-rencontres/44640'
+  },
+  // ── Juin 2027 ─────────────────────────────
+  {
+    id: 'm44613',
+    titre: 'Rencontre réseau — Libourne',
+    date: '2027-06-01', heure: '09h00', fin: '11h30',
+    lieu: 'Libourne', format: 'Présentiel',
+    animateur: 'Tanguy BARICAULT', prix: '10,00 € HT',
+    lien: 'https://www.rencontres-dirigeants.com/nos-rencontres/44613'
+  },
+  {
+    id: 'm44652',
+    titre: 'Rencontre réseau — Talence',
+    date: '2027-06-10', heure: '09h00', fin: '11h30',
+    lieu: 'Talence', format: 'Présentiel',
+    animateur: 'Mateo GIMENEZ', prix: '11,00 € HT',
+    lien: 'https://www.rencontres-dirigeants.com/nos-rencontres/44652'
+  },
+  {
+    id: 'm44649',
+    titre: 'Déjeuner réseau — Mérignac',
+    date: '2027-06-17', heure: '12h30', fin: '14h00',
+    lieu: 'Mérignac', format: 'Repas',
+    animateur: 'Mateo GIMENEZ', prix: '25,00 € (sur place)',
+    lien: 'https://www.rencontres-dirigeants.com/nos-rencontres/44649'
   }
 ];
 
@@ -172,6 +405,10 @@ function generateVCard(member) {
 function buildMemberCardHTML(member, qrContainerId) {
   const initials = getInitials(member.prenom, member.nom);
   const color = getAvatarColor(member.secteur);
+  const photo = getMemberPhoto(member.prenom, member.nom);
+  const cardAvatarHtml = photo
+    ? `<img src="${photo}" class="card-avatar" style="object-fit:cover">`
+    : `<div class="card-avatar" style="background:${color}">${escapeHtml(initials)}</div>`;
   return `
     <div class="member-card-visual">
       <div class="card-top">
@@ -183,7 +420,7 @@ function buildMemberCardHTML(member, qrContainerId) {
       </div>
       <div class="card-body">
         <div class="card-info">
-          <div class="card-avatar" style="background:${color}">${escapeHtml(initials)}</div>
+          ${cardAvatarHtml}
           <div class="card-name">${escapeHtml(member.prenom)} ${escapeHtml(member.nom)}</div>
           <div class="card-company">${escapeHtml(member.entreprise)}</div>
           <div class="card-sector">
@@ -228,6 +465,16 @@ function generateMemberQR(member, containerId, size = 110) {
   }, err => { if (err) console.error('QR error:', err); });
 }
 
+// ─── PHOTOS MEMBRES ────────────────────────
+const MEMBER_PHOTOS = {
+  'mateo_gimenez': 'photo-mateo-gimenez.jpg'
+};
+
+function getMemberPhoto(prenom, nom) {
+  const key = (prenom?.toLowerCase() || '') + '_' + (nom?.toLowerCase() || '');
+  return MEMBER_PHOTOS[key] || null;
+}
+
 // ─── UI HELPERS ────────────────────────────
 function showToast(message, type = 'success') {
   document.querySelector('.toast')?.remove();
@@ -265,6 +512,7 @@ function getDateParts(dateStr) {
 
 function getFormatLabel(meeting) {
   if (meeting.format === 'Repas') return 'Repas';
+  if (meeting.format === 'Évènementiel') return 'Évènementiel';
   const [h, min] = (meeting.fin || '12h00').split('h').map(Number);
   const finMin = h * 60 + (min || 0);
   if (finMin <= 12 * 60)       return 'Matinale';

@@ -153,10 +153,14 @@
     grid.innerHTML = list.map(m => {
       const initials = getInitials(m.prenom, m.nom);
       const color = getAvatarColor(m.secteur);
+      const photo = getMemberPhoto(m.prenom, m.nom);
+      const avatarHtml = photo
+        ? `<img src="${photo}" class="member-avatar" style="object-fit:cover">`
+        : `<div class="member-avatar" style="background:${color}">${escapeHtml(initials)}</div>`;
       return `
         <div class="card member-card">
           <div class="member-header">
-            <div class="member-avatar" style="background:${color}">${escapeHtml(initials)}</div>
+            ${avatarHtml}
             <div>
               <div class="member-name">${escapeHtml(m.prenom)} ${escapeHtml(m.nom)}</div>
               <div class="member-company">${escapeHtml(m.entreprise)}</div>
@@ -284,8 +288,14 @@
 
     // Avatar
     const av = document.getElementById('qrModalAvatar');
-    av.textContent = initials;
-    av.style.background = color;
+    const photo = getMemberPhoto(member.prenom, member.nom);
+    if (photo) {
+      av.style.background = `url(${photo}) center/cover`;
+      av.textContent = '';
+    } else {
+      av.style.background = color;
+      av.textContent = initials;
+    }
 
     document.getElementById('qrModalName').textContent = `${member.prenom} ${member.nom}`;
     document.getElementById('qrModalCompany').textContent = `${member.entreprise} · ${member.ville}`;
