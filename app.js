@@ -190,9 +190,9 @@ const SAMPLE_MEETINGS = [
   },
   {
     id: 'm35414',
-    titre: 'Rencontre réseau — Lescar',
+    titre: 'Rencontre réseau — Pau',
     date: '2026-12-03', heure: '09h00', fin: '11h30',
-    lieu: 'Lescar', format: 'Présentiel',
+    lieu: 'Lo Camin', format: 'Présentiel',
     animateur: 'Michaël GIMENEZ', prix: '10,00 € HT',
     lien: 'https://www.rencontres-dirigeants.com/nos-rencontres/35414'
   },
