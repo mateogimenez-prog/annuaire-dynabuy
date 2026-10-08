@@ -39,7 +39,7 @@ function detectDepartement(ville) {
 
 const MOIS = {
   'janv': '01', 'janvier': '01',
-  'fevr': '02', 'fevrier': '02', 'fevr': '02',
+  'fevr': '02', 'fevrier': '02',
   'mars': '03',
   'avr': '04', 'avril': '04',
   'mai': '05',
@@ -198,6 +198,18 @@ async function parseMeeting(page, meetingId) {
     }
     if (!ville) return null;
 
+    // Salle (nom précis du lieu, distinct de la ville)
+    let salle = '';
+    if (ld?.location?.name) {
+      const nom = ld.location.name.split(',')[0].trim();
+      if (
+        nom.toLowerCase() !== ville.toLowerCase() &&
+        !/lieu.*(d.terminer|inconnu)|à déterminer/i.test(nom)
+      ) {
+        salle = nom;
+      }
+    }
+
     // Animateur
     let animateur = ld?.organizer?.name || null;
     if (!animateur) {
@@ -244,6 +256,7 @@ async function parseMeeting(page, meetingId) {
       heure: heure || '09h00',
       fin: fin || '11h30',
       lieu: ville.trim(),
+      salle: salle.trim(),
       format,
       animateur: animFinal,
       prix: prix || 'Voir site',
@@ -261,7 +274,8 @@ function updateAppJs(meetings) {
     const comma = i < meetings.length - 1 ? ',' : '';
     const titre = m.titre.replace(/'/g, "\\'");
     const lieu = m.lieu.replace(/'/g, "\\'");
-    return `  {\n    id: '${m.id}',\n    titre: '${titre}',\n    date: '${m.date}', heure: '${m.heure}', fin: '${m.fin}',\n    lieu: '${lieu}', format: '${m.format}',\n    animateur: '${m.animateur}', prix: '${m.prix}',\n    lien: '${m.lien}'\n  }${comma}`;
+    const salle = (m.salle || '').replace(/'/g, "\\'");
+    return `  {\n    id: '${m.id}',\n    titre: '${titre}',\n    date: '${m.date}', heure: '${m.heure}', fin: '${m.fin}',\n    lieu: '${lieu}', salle: '${salle}', format: '${m.format}',\n    animateur: '${m.animateur}', prix: '${m.prix}',\n    lien: '${m.lien}'\n  }${comma}`;
   });
 
   const newBlock = `const SAMPLE_MEETINGS = [\n${lines.join('\n')}\n];`;
