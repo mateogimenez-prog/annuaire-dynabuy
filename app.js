@@ -3,7 +3,7 @@
 // ═══════════════════════════════════════════
 
 // Incrémenter ce numéro force un reset du localStorage (supprime les vieilles données)
-const DATA_VERSION = '4';
+const DATA_VERSION = '5';
 
 function initDataVersion() {
   const stored = localStorage.getItem('dynabuy_version');
@@ -74,22 +74,6 @@ const LIEN_INSCRIPTION = 'https://www.rencontres-dirigeants.com/nos-rencontres';
 
 const SAMPLE_MEETINGS = [
   {
-    id: 'm35681',
-    titre: 'Rencontre réseau — Latresne',
-    date: '2026-11-17', heure: '09h00', fin: '11h45',
-    lieu: 'Latresne', salle: 'Aérocampus', format: 'Présentiel',
-    animateur: 'Tanguy BARICAULT', prix: '13,00 € HT',
-    lien: 'https://www.rencontres-dirigeants.com/nos-rencontres/35681'
-  },
-  {
-    id: 'm35588',
-    titre: 'Rencontre réseau — Saint-Jean-de-Luz',
-    date: '2026-11-20', heure: '09h00', fin: '11h30',
-    lieu: 'Saint-Jean-de-Luz', salle: 'Bizipoz Hôtel', format: 'Présentiel',
-    animateur: 'Michaël GIMENEZ', prix: '12,00 € HT',
-    lien: 'https://www.rencontres-dirigeants.com/nos-rencontres/35588'
-  },
-  {
     id: 'm35459',
     titre: 'Rencontre réseau — Bordeaux',
     date: '2026-11-26', heure: '15h00', fin: '17h30',
@@ -117,7 +101,7 @@ const SAMPLE_MEETINGS = [
     id: 'm35495',
     titre: 'Rencontre réseau — Dax',
     date: '2026-12-04', heure: '09h00', fin: '11h30',
-    lieu: 'Dax', salle: '', format: 'Présentiel',
+    lieu: 'Dax', salle: 'PULSEO', format: 'Présentiel',
     animateur: 'Michaël GIMENEZ', prix: '11,00 € HT',
     lien: 'https://www.rencontres-dirigeants.com/nos-rencontres/35495'
   },
@@ -146,12 +130,12 @@ const SAMPLE_MEETINGS = [
     lien: 'https://www.rencontres-dirigeants.com/nos-rencontres/35591'
   },
   {
-    id: 'm35720',
-    titre: 'Déjeuner réseau — Libourne',
-    date: '2026-12-21', heure: '12h30', fin: '14h00',
-    lieu: 'Libourne', salle: '', format: 'Repas',
-    animateur: 'Tanguy BARICAULT', prix: '25,00 € (sur place)',
-    lien: 'https://www.rencontres-dirigeants.com/nos-rencontres/35720'
+    id: 'm44598',
+    titre: 'Rencontre réseau — Saint-Émilion',
+    date: '2027-01-14', heure: '09h00', fin: '11h30',
+    lieu: 'Saint-Émilion', salle: 'Château Soutard', format: 'Présentiel',
+    animateur: 'Tanguy BARICAULT', prix: '14,50 € HT',
+    lien: 'https://www.rencontres-dirigeants.com/nos-rencontres/44598'
   },
   {
     id: 'm50456',
@@ -170,20 +154,28 @@ const SAMPLE_MEETINGS = [
     lien: 'https://www.rencontres-dirigeants.com/nos-rencontres/44628'
   },
   {
-    id: 'm44457',
-    titre: 'Rencontre réseau — Bayonne',
-    date: '2027-01-21', heure: '09h00', fin: '11h30',
-    lieu: 'Bayonne', salle: '', format: 'Présentiel',
-    animateur: 'Michaël GIMENEZ', prix: '10,00 € HT',
-    lien: 'https://www.rencontres-dirigeants.com/nos-rencontres/44457'
-  },
-  {
     id: 'm44496',
     titre: 'Rencontre réseau — Dax',
     date: '2027-01-21', heure: '09h00', fin: '11h30',
     lieu: 'Dax', salle: 'PULSEO', format: 'Présentiel',
     animateur: 'Michaël GIMENEZ', prix: '8,00 € HT',
     lien: 'https://www.rencontres-dirigeants.com/nos-rencontres/44496'
+  },
+  {
+    id: 'm44457',
+    titre: 'Rencontre réseau — Bayonne',
+    date: '2027-01-22', heure: '09h00', fin: '11h30',
+    lieu: 'Bayonne', salle: 'Now Coworking', format: 'Présentiel',
+    animateur: 'Michaël GIMENEZ', prix: '10,00 € HT',
+    lien: 'https://www.rencontres-dirigeants.com/nos-rencontres/44457'
+  },
+  {
+    id: 'm44424',
+    titre: 'Rencontre réseau — Bordeaux',
+    date: '2027-01-28', heure: '15h00', fin: '17h30',
+    lieu: 'Bordeaux', salle: 'Golf Blue Green Bordeaux Lac', format: 'Présentiel',
+    animateur: 'Michaël GIMENEZ', prix: '11,00 € HT',
+    lien: 'https://www.rencontres-dirigeants.com/nos-rencontres/44424'
   },
   {
     id: 'm44601',
@@ -210,26 +202,58 @@ const SAMPLE_MEETINGS = [
     lien: 'https://www.rencontres-dirigeants.com/nos-rencontres/44631'
   },
   {
+    id: 'm44604',
+    titre: 'Rencontre réseau — Libourne',
+    date: '2027-03-02', heure: '09h00', fin: '11h30',
+    lieu: 'Libourne', salle: '', format: 'Présentiel',
+    animateur: 'Tanguy BARICAULT', prix: '10,00 € HT',
+    lien: 'https://www.rencontres-dirigeants.com/nos-rencontres/44604'
+  },
+  {
+    id: 'm44571',
+    titre: 'Rencontre réseau — Pau',
+    date: '2027-03-05', heure: '09h00', fin: '11h30',
+    lieu: 'Pau', salle: '', format: 'Présentiel',
+    animateur: 'Michaël GIMENEZ', prix: '10,00 € HT',
+    lien: 'https://www.rencontres-dirigeants.com/nos-rencontres/44571'
+  },
+  {
     id: 'm44643',
     titre: 'Déjeuner réseau — Mérignac',
     date: '2027-03-11', heure: '12h30', fin: '14h00',
-    lieu: 'Mérignac', format: 'Repas',
+    lieu: 'Mérignac', salle: '', format: 'Repas',
     animateur: 'Mateo GIMENEZ', prix: '25,00 € (sur place)',
     lien: 'https://www.rencontres-dirigeants.com/nos-rencontres/44643'
+  },
+  {
+    id: 'm44502',
+    titre: 'Rencontre réseau — Dax',
+    date: '2027-03-18', heure: '09h00', fin: '11h30',
+    lieu: 'Dax', salle: 'PULSEO', format: 'Présentiel',
+    animateur: 'Michaël GIMENEZ', prix: '8,00 € HT',
+    lien: 'https://www.rencontres-dirigeants.com/nos-rencontres/44502'
   },
   {
     id: 'm44634',
     titre: 'Rencontre réseau — Talence',
     date: '2027-03-18', heure: '09h00', fin: '11h30',
-    lieu: 'Talence', format: 'Présentiel',
+    lieu: 'Talence', salle: '', format: 'Présentiel',
     animateur: 'Mateo GIMENEZ', prix: '11,00 € HT',
     lien: 'https://www.rencontres-dirigeants.com/nos-rencontres/44634'
+  },
+  {
+    id: 'm44466',
+    titre: 'Rencontre réseau — Bayonne',
+    date: '2027-03-19', heure: '09h00', fin: '11h30',
+    lieu: 'Bayonne', salle: '', format: 'Présentiel',
+    animateur: 'Michaël GIMENEZ', prix: '10,00 € HT',
+    lien: 'https://www.rencontres-dirigeants.com/nos-rencontres/44466'
   },
   {
     id: 'm44607',
     titre: 'Rencontre réseau — Libourne',
     date: '2027-04-01', heure: '09h00', fin: '11h30',
-    lieu: 'Libourne', format: 'Présentiel',
+    lieu: 'Libourne', salle: '', format: 'Présentiel',
     animateur: 'Tanguy BARICAULT', prix: '10,00 € HT',
     lien: 'https://www.rencontres-dirigeants.com/nos-rencontres/44607'
   },
@@ -237,15 +261,23 @@ const SAMPLE_MEETINGS = [
     id: 'm44637',
     titre: 'Rencontre réseau — Talence',
     date: '2027-04-08', heure: '09h00', fin: '11h30',
-    lieu: 'Talence', format: 'Présentiel',
+    lieu: 'Talence', salle: '', format: 'Présentiel',
     animateur: 'Mateo GIMENEZ', prix: '11,00 € HT',
     lien: 'https://www.rencontres-dirigeants.com/nos-rencontres/44637'
+  },
+  {
+    id: 'm44610',
+    titre: 'Rencontre réseau — Libourne',
+    date: '2027-05-11', heure: '09h00', fin: '11h30',
+    lieu: 'Libourne', salle: '', format: 'Présentiel',
+    animateur: 'Tanguy BARICAULT', prix: '10,00 € HT',
+    lien: 'https://www.rencontres-dirigeants.com/nos-rencontres/44610'
   },
   {
     id: 'm44640',
     titre: 'Déjeuner réseau — Mérignac',
     date: '2027-05-20', heure: '12h30', fin: '14h00',
-    lieu: 'Mérignac', format: 'Repas',
+    lieu: 'Mérignac', salle: '', format: 'Repas',
     animateur: 'Mateo GIMENEZ', prix: '25,00 € (sur place)',
     lien: 'https://www.rencontres-dirigeants.com/nos-rencontres/44640'
   },
@@ -253,7 +285,7 @@ const SAMPLE_MEETINGS = [
     id: 'm44613',
     titre: 'Rencontre réseau — Libourne',
     date: '2027-06-01', heure: '09h00', fin: '11h30',
-    lieu: 'Libourne', format: 'Présentiel',
+    lieu: 'Libourne', salle: '', format: 'Présentiel',
     animateur: 'Tanguy BARICAULT', prix: '10,00 € HT',
     lien: 'https://www.rencontres-dirigeants.com/nos-rencontres/44613'
   },
@@ -261,7 +293,7 @@ const SAMPLE_MEETINGS = [
     id: 'm44652',
     titre: 'Rencontre réseau — Talence',
     date: '2027-06-10', heure: '09h00', fin: '11h30',
-    lieu: 'Talence', format: 'Présentiel',
+    lieu: 'Talence', salle: '', format: 'Présentiel',
     animateur: 'Mateo GIMENEZ', prix: '11,00 € HT',
     lien: 'https://www.rencontres-dirigeants.com/nos-rencontres/44652'
   },
@@ -269,7 +301,7 @@ const SAMPLE_MEETINGS = [
     id: 'm44649',
     titre: 'Déjeuner réseau — Mérignac',
     date: '2027-06-17', heure: '12h30', fin: '14h00',
-    lieu: 'Mérignac', format: 'Repas',
+    lieu: 'Mérignac', salle: '', format: 'Repas',
     animateur: 'Mateo GIMENEZ', prix: '25,00 € (sur place)',
     lien: 'https://www.rencontres-dirigeants.com/nos-rencontres/44649'
   }
